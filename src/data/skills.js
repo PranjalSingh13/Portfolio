@@ -1,0 +1,77 @@
+export const SKILLS = [
+  {
+    category: 'Frontend',
+    icon: '⚛️',
+    color: '#38BDF8',
+    skills: [
+      { name: 'React.js', level: 85 },
+      { name: 'HTML5', level: 92 },
+      { name: 'CSS3', level: 88 },
+      { name: 'Tailwind CSS', level: 85 },
+      { name: 'JavaScript (ES6+)', level: 88 },
+      { name: 'Vite', level: 80 },
+    ],
+  },
+  {
+    category: 'Backend',
+    icon: '⚙️',
+    color: '#2563EB',
+    skills: [
+      { name: 'Node.js', level: 85 },
+      { name: 'Express.js', level: 85 },
+      { name: 'Flask', level: 78 },
+      { name: 'REST APIs', level: 90 },
+      { name: 'JWT & Bcrypt', level: 82 },
+      { name: 'Socket.io', level: 75 },
+    ],
+  },
+  {
+    category: 'Databases',
+    icon: '🗄️',
+    color: '#22C55E',
+    skills: [
+      { name: 'MongoDB', level: 85 },
+      { name: 'PostgreSQL', level: 72 },
+      { name: 'MySQL', level: 78 },
+      { name: 'SQLite', level: 80 },
+    ],
+  },
+  {
+    category: 'Languages',
+    icon: '💻',
+    color: '#A855F7',
+    skills: [
+      { name: 'Python', level: 85 },
+      { name: 'JavaScript', level: 88 },
+      { name: 'C++', level: 78 },
+      { name: 'C', level: 75 },
+      { name: 'SQL', level: 82 },
+    ],
+  },
+  {
+    category: 'Tools & DevOps',
+    icon: '🛠️',
+    color: '#F97316',
+    skills: [
+      { name: 'Git & GitHub', level: 90 },
+      { name: 'Postman', level: 88 },
+      { name: 'Vercel / Render', level: 82 },
+      { name: 'VS Code', level: 92 },
+      { name: 'Linux', level: 72 },
+      { name: 'MongoDB Atlas', level: 80 },
+    ],
+  },
+  {
+    category: 'Core CS',
+    icon: '🧠',
+    color: '#EC4899',
+    skills: [
+      { name: 'DSA', level: 78 },
+      { name: 'OOP', level: 85 },
+      { name: 'DBMS', level: 80 },
+      { name: 'Operating Systems', level: 72 },
+      { name: 'Computer Networks', level: 70 },
+      { name: 'RBAC / Auth Design', level: 80 },
+    ],
+  },
+]
