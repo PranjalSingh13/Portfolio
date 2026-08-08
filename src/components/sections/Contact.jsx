@@ -67,6 +67,8 @@ export default function Contact({ addToast }) {
         if (web3Key) {
           url = url || 'https://api.web3forms.com/submit'
           payload.access_key = web3Key
+          payload.botcheck = false           // Required by Web3Forms anti-spam
+          payload.from_name = submission.name // Sender name in email
         }
 
         const response = await fetch(url, {
