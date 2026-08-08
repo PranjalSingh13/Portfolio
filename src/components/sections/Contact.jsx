@@ -57,14 +57,43 @@ export default function Contact({ addToast }) {
         message: sanitizeText(formData.message),
       }
 
-      // Simulate network request latency (can link Formspree/EmailJS here)
-      await new Promise((resolve) => setTimeout(resolve, 1500))
+      const endpoint = import.meta.env.VITE_CONTACT_FORM_ENDPOINT
+      const web3Key = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY
+
+      if (endpoint || web3Key) {
+        let url = endpoint
+        let payload = { ...submission }
+
+        if (web3Key) {
+          url = url || 'https://api.web3forms.com/submit'
+          payload.access_key = web3Key
+        }
+
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          },
+          body: JSON.stringify(payload),
+        })
+
+        const result = await response.json().catch(() => ({}))
+        if (!response.ok || (web3Key && !result.success)) {
+          throw new Error(result.message || 'Server responded with an error status.')
+        }
+      } else {
+        console.warn('VITE_CONTACT_FORM_ENDPOINT or VITE_WEB3FORMS_ACCESS_KEY is not defined. Simulating message receipt.')
+        await new Promise((resolve) => setTimeout(resolve, 1000))
+        throw new Error('Email service not configured. Set VITE_CONTACT_FORM_ENDPOINT or VITE_WEB3FORMS_ACCESS_KEY in .env.')
+      }
 
       addToast({ message: 'Thank you! Your message has been received.', type: 'success' })
       setFormData({ name: '', email: '', subject: '', message: '', _honeypot: '' })
       setErrors({})
     } catch (err) {
-      addToast({ message: 'Submission failed. Please try again.', type: 'error' })
+      console.error('Contact submission error:', err)
+      addToast({ message: err.message || 'Submission failed. Please try again.', type: 'error' })
     } finally {
       setLoading(false)
     }

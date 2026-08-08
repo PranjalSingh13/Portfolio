@@ -46,3 +46,15 @@ export function computeLanguages(repos) {
       percent: Math.round((count / total) * 100),
     }))
 }
+
+/**
+ * Fetch recent public events for the GitHub user.
+ */
+export async function fetchGitHubEvents() {
+  const res = await fetch(`${BASE_URL}/users/${GITHUB_USERNAME}/events/public?per_page=10`, {
+    headers: { Accept: 'application/vnd.github.v3+json' },
+  })
+  if (!res.ok) throw new Error(`GitHub events error: ${res.status}`)
+  return res.json()
+}
+

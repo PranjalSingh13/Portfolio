@@ -1,4 +1,4 @@
-import { FiGithub, FiStar, FiGitBranch, FiUsers, FiFolder, FiAlertTriangle } from 'react-icons/fi'
+import { FiGithub, FiStar, FiGitBranch, FiUsers, FiFolder, FiAlertTriangle, FiPlusCircle, FiGitPullRequest, FiAlertCircle } from 'react-icons/fi'
 import AnimatedSection from '../ui/AnimatedSection'
 import { useGitHub } from '../../hooks/useGitHub'
 import { SkeletonCard, SkeletonText } from '../ui/LoadingSkeleton'
@@ -8,6 +8,88 @@ import { LINKS, GITHUB_USERNAME } from '../../utils/constants'
  * GitHub Section. Fetches real data dynamically using useGitHub hook.
  * Handles loading, fallback static details on rate limiting, and displays repo cards/languages.
  */
+/**
+ * Format timestamp to a user-friendly relative representation.
+ */
+function formatRelativeTime(dateString) {
+  const date = new Date(dateString)
+  const now = new Date()
+  const diffMs = now - date
+  const diffMins = Math.floor(diffMs / 60000)
+  const diffHours = Math.floor(diffMs / 3600000)
+  const diffDays = Math.floor(diffMs / 86400000)
+
+  if (diffMins < 1) return 'Just now'
+  if (diffMins < 60) return `${diffMins}m ago`
+  if (diffHours < 24) return `${diffHours}h ago`
+  if (diffDays === 1) return 'Yesterday'
+  if (diffDays < 30) return `${diffDays}d ago`
+  
+  return date.toLocaleDateString(undefined, { month: 'short', day: 'numeric' })
+}
+
+/**
+ * Maps a GitHub event type to a formatted title, desc, and icon.
+ */
+function formatEvent(event) {
+  const repoName = event.repo?.name ? event.repo.name.split('/').pop() : 'repository'
+  const timeStr = formatRelativeTime(event.created_at)
+
+  switch (event.type) {
+    case 'PushEvent': {
+      const commitMsg = event.payload?.commits?.[0]?.message || 'Pushed code changes'
+      return {
+        icon: <FiGitBranch className="text-primary animate-pulse" />,
+        title: `Pushed to ${repoName}`,
+        description: commitMsg,
+        time: timeStr,
+      }
+    }
+    case 'CreateEvent':
+      return {
+        icon: <FiPlusCircle className="text-success" />,
+        title: `Created ${event.payload?.ref_type || 'resource'} in ${repoName}`,
+        description: `Created branch/ref: ${event.payload?.ref || 'main'}`,
+        time: timeStr,
+      }
+    case 'PullRequestEvent':
+      return {
+        icon: <FiGitPullRequest className="text-accent" />,
+        title: `${event.payload?.action ? event.payload.action.charAt(0).toUpperCase() + event.payload.action.slice(1) : 'Opened'} PR`,
+        description: event.payload?.pull_request?.title || `Pull Request in ${repoName}`,
+        time: timeStr,
+      }
+    case 'WatchEvent':
+      return {
+        icon: <FiStar className="text-amber-400 fill-amber-400" />,
+        title: `Starred ${repoName}`,
+        description: 'Starred this repository',
+        time: timeStr,
+      }
+    case 'ForkEvent':
+      return {
+        icon: <FiGitBranch className="text-purple-400" />,
+        title: `Forked ${repoName}`,
+        description: `Forked to profile`,
+        time: timeStr,
+      }
+    case 'IssuesEvent':
+      return {
+        icon: <FiAlertCircle className="text-red-400" />,
+        title: `${event.payload?.action ? event.payload.action.charAt(0).toUpperCase() + event.payload.action.slice(1) : 'Modified'} Issue`,
+        description: event.payload?.issue?.title || `Issue in ${repoName}`,
+        time: timeStr,
+      }
+    default:
+      return {
+        icon: <FiGithub className="text-muted" />,
+        title: `Activity in ${repoName}`,
+        description: `${event.type?.replace('Event', '') || 'Active'} development`,
+        time: timeStr,
+      }
+  }
+}
+
 export default function GitHub() {
   const { data, loading, error, rateLimited } = useGitHub()
 
@@ -22,12 +104,12 @@ export default function GitHub() {
     },
     repos: [
       {
-        name: 'MyRideShare',
+        name: 'MyRideShareApp',
         description: 'AI-Powered Ride Sharing Application with User & Captain portals, WebSocket connection, and fare estimation.',
         stargazers_count: 4,
         forks_count: 2,
         language: 'JavaScript',
-        html_url: `https://github.com/${GITHUB_USERNAME}/MyRideShare`,
+        html_url: `https://github.com/${GITHUB_USERNAME}/MyRideShareApp`,
       },
       {
         name: 'StructDB',
@@ -38,12 +120,12 @@ export default function GitHub() {
         html_url: `https://github.com/${GITHUB_USERNAME}/StructDB`,
       },
       {
-        name: 'PriceComparisonPro',
+        name: 'Price-Comparison-Pro',
         description: 'Full Stack Price Aggregator comparing Amazon, Flipkart, Ajio, and Meesho in parallel using ThreadPoolExecutor.',
         stargazers_count: 3,
         forks_count: 0,
         language: 'Python',
-        html_url: `https://github.com/${GITHUB_USERNAME}/PriceComparisonPro`,
+        html_url: `https://github.com/${GITHUB_USERNAME}/Price-Comparison-Pro`,
       },
     ],
     languages: [
@@ -52,11 +134,42 @@ export default function GitHub() {
       { lang: 'HTML/CSS', count: 3, percent: 15 },
       { lang: 'C++', count: 1, percent: 5 },
     ],
+    events: [
+      {
+        id: 'mock-1',
+        type: 'PushEvent',
+        created_at: new Date(Date.now() - 3600000 * 2).toISOString(),
+        repo: { name: `${GITHUB_USERNAME}/AgriConnect` },
+        payload: { commits: [{ message: 'feat: Add MongoDB schema optimizations for crop listings' }] }
+      },
+      {
+        id: 'mock-2',
+        type: 'PushEvent',
+        created_at: new Date(Date.now() - 3600000 * 24).toISOString(),
+        repo: { name: `${GITHUB_USERNAME}/MyRideShareApp` },
+        payload: { commits: [{ message: 'refactor: Separate User and Captain WebSocket controllers' }] }
+      },
+      {
+        id: 'mock-3',
+        type: 'WatchEvent',
+        created_at: new Date(Date.now() - 3600000 * 24 * 3).toISOString(),
+        repo: { name: `${GITHUB_USERNAME}/StructDB` },
+        payload: {}
+      },
+      {
+        id: 'mock-4',
+        type: 'PushEvent',
+        created_at: new Date(Date.now() - 3600000 * 24 * 10).toISOString(),
+        repo: { name: `${GITHUB_USERNAME}/Price-Comparison-Pro` },
+        payload: { commits: [{ message: 'feat: Add parallel scraper for Ajio and Meesho' }] }
+      }
+    ]
   }
 
   const activeProfile = rateLimited || error ? fallbackStats.profile : data?.profile
   const activeRepos = rateLimited || error ? fallbackStats.repos : data?.repos
   const activeLangs = rateLimited || error ? fallbackStats.languages : data?.languages
+  const activeEvents = rateLimited || error ? fallbackStats.events : (data?.events || [])
 
   return (
     <section id="github" className="bg-background border-b border-border/40">
@@ -220,23 +333,40 @@ export default function GitHub() {
                   ))}
                 </div>
 
-                {/* Contribution graph placeholder illustration */}
+                {/* Dynamic GitHub Activity Timeline */}
                 <div className="border-t border-border/80 pt-6">
-                  <h4 className="text-xs font-semibold uppercase tracking-widest text-muted mb-4">
-                    Contributions telemetry
+                  <h4 className="text-xs font-semibold uppercase tracking-widest text-muted mb-4 flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-success animate-pulse" />
+                    Live Activity Feed
                   </h4>
-                  <div className="bg-surface/50 border border-border rounded-xl p-4 flex flex-col items-center justify-center min-h-24 text-center">
-                    <p className="text-xs text-muted leading-relaxed">
-                      Daily Git contribution velocity metrics can be viewed directly on Pranjal's GitHub activity feed.
-                    </p>
-                    <a
-                      href={LINKS.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-3 inline-flex items-center gap-1.5 text-xs text-primary hover:text-accent font-semibold"
-                    >
-                      Go to GitHub <FiGithub size={12} />
-                    </a>
+                  <div className="space-y-4">
+                    {activeEvents && activeEvents.length > 0 ? (
+                      activeEvents.slice(0, 5).map((event) => {
+                        const parsed = formatEvent(event)
+                        return (
+                          <div key={event.id} className="flex gap-3 text-xs items-start group/item">
+                            <div className="p-2 bg-surface border border-border rounded-lg group-hover/item:border-primary/40 transition-colors mt-0.5 shrink-0">
+                              {parsed.icon}
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <div className="flex justify-between items-start gap-1">
+                                <span className="font-bold text-text truncate group-hover/item:text-primary transition-colors">
+                                  {parsed.title}
+                                </span>
+                                <span className="text-[10px] text-muted shrink-0 font-mono mt-0.5">
+                                  {parsed.time}
+                                </span>
+                              </div>
+                              <p className="text-[11px] text-muted truncate mt-0.5 font-mono">
+                                {parsed.description}
+                              </p>
+                            </div>
+                          </div>
+                        )
+                      })
+                    ) : (
+                      <p className="text-xs text-muted text-center py-4">No recent public activities found.</p>
+                    )}
                   </div>
                 </div>
               </div>

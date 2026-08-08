@@ -97,15 +97,41 @@ portfolio/
 
 ---
 
+## Environment & Integration Configuration
+
+### 1. Contact Form Email Setup
+To receive emails directly from your live portfolio, configure one of the following form submission providers:
+
+#### Option A: Web3Forms (Recommended - Zero Config)
+1. Request a free access key at [Web3Forms](https://web3forms.com).
+2. Copy your access key (e.g. `12345678-abcd-1234-abcd-123456789abc`).
+3. Add it to your `.env` file (or Vercel/Netlify Environment Variables):
+   ```env
+   VITE_WEB3FORMS_ACCESS_KEY=your-access-key-here
+   ```
+
+#### Option B: Formspree (Custom Endpoints)
+1. Set up a form at [Formspree](https://formspree.io).
+2. Obtain your custom endpoint (e.g. `https://formspree.io/f/your-form-id`).
+3. Add it to your `.env` file:
+   ```env
+   VITE_CONTACT_FORM_ENDPOINT=https://formspree.io/f/your-form-id
+   ```
+
+---
+
 ## Deployment Guide
 
 ### Vercel
 1. Ensure `vercel.json` is in the root directory.
 2. Link your repository to Vercel.
 3. Configure the build command as `npm run build` and output directory as `dist`.
-4. Deploy.
+4. Define environment variables (`VITE_GITHUB_USERNAME`, `VITE_WEB3FORMS_ACCESS_KEY`, etc.) in the Vercel project dashboard.
+5. Deploy.
 
 ### Netlify
 1. Ensure `netlify.toml` is in the root directory.
 2. Set build command to `npm run build` and publish directory to `dist`.
-3. Deploy.
+3. Configure environment variables in the Netlify site configuration panel.
+4. Deploy.
+

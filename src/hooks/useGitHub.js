@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
-import { fetchGitHubProfile, fetchGitHubRepos, computeLanguages } from '../services/github'
+import { fetchGitHubProfile, fetchGitHubRepos, computeLanguages, fetchGitHubEvents } from '../services/github'
 
 /**
  * useGitHub — fetches and caches GitHub profile + repos.
@@ -15,16 +15,20 @@ export function useGitHub() {
     try {
       setLoading(true)
       setError(null)
-      const [profile, repos] = await Promise.all([
+      const [profile, repos, events] = await Promise.all([
         fetchGitHubProfile(),
         fetchGitHubRepos(),
+        fetchGitHubEvents().catch((err) => {
+          console.warn('Failed to fetch GitHub events:', err)
+          return []
+        }),
       ])
       const languages = computeLanguages(repos)
       const topRepos = repos
         .filter((r) => !r.fork)
         .sort((a, b) => b.stargazers_count - a.stargazers_count)
         .slice(0, 6)
-      setData({ profile, repos: topRepos, languages })
+      setData({ profile, repos: topRepos, languages, events })
     } catch (err) {
       if (err.message.includes('403') || err.message.includes('429')) {
         setRateLimited(true)
