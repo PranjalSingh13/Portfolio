@@ -76,11 +76,18 @@
            bg-surface text-muted border border-border;
   }
 
+  /* Glassmorphism Card base */
+  .glass-card {
+    @apply bg-card/90 backdrop-blur-md rounded-2xl border border-border/80 p-6
+           transition-all duration-300 hover:border-primary/50
+           hover:shadow-[0_0_35px_rgba(37,99,235,0.12)];
+  }
+
   /* Card base */
   .card {
     @apply bg-card rounded-2xl border border-border p-6
            transition-all duration-300 hover:border-primary/40
-           hover:shadow-[0_0_30px_rgba(37,99,235,0.08)];
+           hover:shadow-[0_0_30px_rgba(37,99,235,0.08)] hover:-translate-y-0.5;
   }
 
   /* Primary button */
@@ -88,7 +95,7 @@
     @apply inline-flex items-center gap-2 px-6 py-3 rounded-xl
            bg-primary text-white font-semibold text-sm
            transition-all duration-200
-           hover:bg-blue-500 hover:shadow-[0_0_20px_rgba(37,99,235,0.4)]
+           hover:bg-blue-500 hover:shadow-[0_0_25px_rgba(37,99,235,0.45)]
            active:scale-95 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2;
   }
 
@@ -99,6 +106,12 @@
            transition-all duration-200
            hover:border-primary/50 hover:text-text hover:bg-surface
            active:scale-95 focus-visible:ring-2 focus-visible:ring-primary;
+  }
+
+  /* Tech metric pill badge */
+  .metric-badge {
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono font-semibold
+           bg-primary/10 text-primary border border-primary/20 hover:bg-primary/20 transition-colors;
   }
 
   /* Animated underline for links */
@@ -114,8 +127,8 @@
   /* Grid background pattern */
   .grid-bg {
     background-image:
-      linear-gradient(rgba(37, 99, 235, 0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(37, 99, 235, 0.04) 1px, transparent 1px);
+      linear-gradient(rgba(37, 99, 235, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(37, 99, 235, 0.05) 1px, transparent 1px);
     background-size: 64px 64px;
   }
 

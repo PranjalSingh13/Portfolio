@@ -1,20 +1,22 @@
-import { useState } from 'react'
-import { FiX, FiPlus, FiTrash2, FiSave, FiCopy, FiRefreshCw, FiEdit2 } from 'react-icons/fi'
+import { useState, useRef } from 'react'
+import { FiX, FiPlus, FiTrash2, FiSave, FiCopy, FiRefreshCw, FiEdit2, FiUploadCloud, FiDownload, FiCheckCircle, FiFileText } from 'react-icons/fi'
 import { savePortfolioData, resetPortfolioData, formatDataAsJsFile } from '../../services/db'
 
 /**
- * Premium Live Editor Dashboard.
- * Allows adding, editing, and deleting items with a live preview and code export options.
+ * Premium Live Editor Dashboard & Automated Data Uploader.
+ * Allows adding, editing, deleting, uploading JSON details files, and exporting code.
  */
 export default function Editor({ data, onUpdate, onClose, addToast }) {
   const [activeTab, setActiveTab] = useState('projects')
   const [editedData, setEditedData] = useState({ ...data })
+  const [dragActive, setDragActive] = useState(false)
+  const fileInputRef = useRef(null)
 
   const handleSave = () => {
     const success = savePortfolioData(editedData)
     if (success) {
       onUpdate(editedData)
-      addToast({ message: 'Changes saved locally! Real-time changes applied.', type: 'success' })
+      addToast({ message: 'Portfolio details updated successfully! Real-time changes applied.', type: 'success' })
     } else {
       addToast({ message: 'Failed to save changes.', type: 'error' })
     }
@@ -23,14 +25,82 @@ export default function Editor({ data, onUpdate, onClose, addToast }) {
   const handleReset = () => {
     if (window.confirm('Are you sure you want to discard all custom edits and reset to file defaults?')) {
       resetPortfolioData()
-      // reload page or restore state from fresh import
       window.location.reload()
     }
   }
 
   const copyToClipboard = (text, fileName) => {
     navigator.clipboard.writeText(text)
-    addToast({ message: `${fileName} code copied to clipboard! Paste it into the file.`, type: 'success' })
+    addToast({ message: `${fileName} copied to clipboard!`, type: 'success' })
+  }
+
+  // --- Automated JSON Import & File Upload Handler ---
+  const processUploadedJson = (jsonContent) => {
+    try {
+      const parsed = typeof jsonContent === 'string' ? JSON.parse(jsonContent) : jsonContent
+      
+      const updated = {
+        site: parsed.site ? { ...editedData.site, ...parsed.site } : editedData.site,
+        projects: Array.isArray(parsed.projects) ? parsed.projects : editedData.projects,
+        experience: Array.isArray(parsed.experience) ? parsed.experience : editedData.experience,
+        skills: Array.isArray(parsed.skills) ? parsed.skills : editedData.skills,
+        achievements: Array.isArray(parsed.achievements) ? parsed.achievements : editedData.achievements,
+      }
+
+      setEditedData(updated)
+      savePortfolioData(updated)
+      onUpdate(updated)
+      addToast({ message: 'New details imported successfully! Portfolio adapted instantly.', type: 'success' })
+    } catch (err) {
+      addToast({ message: `Invalid JSON file structure: ${err.message}`, type: 'error' })
+    }
+  }
+
+  const handleFileUpload = (e) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    const reader = new FileReader()
+    reader.onload = (event) => {
+      processUploadedJson(event.target?.result)
+    }
+    reader.readAsText(file)
+  }
+
+  const handleDragOver = (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+    setDragActive(true)
+  }
+
+  const handleDragLeave = (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+    setDragActive(false)
+  }
+
+  const handleDrop = (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+    setDragActive(false)
+    const file = e.dataTransfer.files?.[0]
+    if (file) {
+      const reader = new FileReader()
+      reader.onload = (event) => {
+        processUploadedJson(event.target?.result)
+      }
+      reader.readAsText(file)
+    }
+  }
+
+  const downloadJsonTemplate = () => {
+    const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(editedData, null, 2))
+    const downloadAnchor = document.createElement('a')
+    downloadAnchor.setAttribute('href', dataStr)
+    downloadAnchor.setAttribute('download', 'pranjal_portfolio_details.json')
+    document.body.appendChild(downloadAnchor)
+    downloadAnchor.click()
+    downloadAnchor.remove()
+    addToast({ message: 'JSON template downloaded!', type: 'success' })
   }
 
   // --- Projects Editor Handlers ---
@@ -82,7 +152,7 @@ export default function Editor({ data, onUpdate, onClose, addToast }) {
       company: 'Company/Incubator Name',
       project: 'Project Context',
       type: 'Internship',
-      period: 'Jun 2026 — Present',
+      period: 'Jun 2026 — Aug 2026',
       location: 'Remote / Hybrid',
       stack: ['React', 'Node.js'],
       color: '#2563EB',
@@ -105,9 +175,9 @@ export default function Editor({ data, onUpdate, onClose, addToast }) {
         <div className="flex items-center justify-between px-6 py-4 border-b border-border bg-surface/30">
           <div>
             <h2 className="text-lg font-bold text-text flex items-center gap-2">
-              <FiEdit2 className="text-primary" /> Live Portfolio Editor
+              <FiEdit2 className="text-primary" /> Live Portfolio & Resume Editor
             </h2>
-            <p className="text-xs text-muted mt-0.5">Click sections to modify. Save to update instantly.</p>
+            <p className="text-xs text-muted mt-0.5">Upload new details JSON file or edit components live.</p>
           </div>
           <button
             onClick={onClose}
@@ -122,7 +192,7 @@ export default function Editor({ data, onUpdate, onClose, addToast }) {
         <div className="flex-1 overflow-y-auto p-6 space-y-6">
           {/* Tab Selection */}
           <div className="flex border-b border-border overflow-x-auto no-scrollbar gap-2 pb-1">
-            {['projects', 'experience', 'site', 'export'].map((tab) => (
+            {['upload/import', 'projects', 'experience', 'site', 'export'].map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
@@ -132,10 +202,71 @@ export default function Editor({ data, onUpdate, onClose, addToast }) {
                     : 'border-transparent text-muted hover:text-text'
                 }`}
               >
-                {tab}
+                {tab === 'upload/import' ? '⚡ Upload JSON' : tab}
               </button>
             ))}
           </div>
+
+          {/* TAB CONTENT: AUTOMATED JSON UPLOAD & IMPORT */}
+          {activeTab === 'upload/import' && (
+            <div className="space-y-6">
+              <div>
+                <h3 className="text-sm font-bold text-text flex items-center gap-2">
+                  <FiUploadCloud className="text-primary" size={18} /> Automatic Detail Adapter
+                </h3>
+                <p className="text-xs text-muted leading-relaxed mt-1">
+                  Upload any new resume data file (.json format) to automatically update projects, internship experience, skills, and site parameters across your entire portfolio instantly.
+                </p>
+              </div>
+
+              {/* Drag and Drop Zone */}
+              <div
+                onDragOver={handleDragOver}
+                onDragLeave={handleDragLeave}
+                onDrop={handleDrop}
+                onClick={() => fileInputRef.current?.click()}
+                className={`border-2 border-dashed rounded-2xl p-8 text-center cursor-pointer transition-all duration-300 ${
+                  dragActive
+                    ? 'border-primary bg-primary/10 scale-[1.01]'
+                    : 'border-border hover:border-primary/50 bg-surface/30 hover:bg-surface/50'
+                }`}
+              >
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept=".json"
+                  onChange={handleFileUpload}
+                  className="hidden"
+                />
+                <div className="flex flex-col items-center gap-3">
+                  <div className="p-4 rounded-full bg-primary/10 text-primary">
+                    <FiUploadCloud size={28} />
+                  </div>
+                  <div>
+                    <p className="text-sm font-bold text-text">Click to browse or drop your .json file here</p>
+                    <p className="text-xs text-muted mt-1">Supports full portfolio & resume schemas</p>
+                  </div>
+                  <span className="mt-2 inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-surface border border-border text-[11px] font-mono text-primary font-semibold">
+                    <FiFileText size={13} /> Select pranjal_portfolio_details.json
+                  </span>
+                </div>
+              </div>
+
+              {/* Download JSON Template */}
+              <div className="p-5 border border-border bg-card rounded-xl flex items-center justify-between gap-4">
+                <div>
+                  <h4 className="text-xs font-bold text-text">Download Current Data as JSON</h4>
+                  <p className="text-[11px] text-muted mt-0.5">Save your current portfolio setup as a JSON template to edit and re-upload anytime.</p>
+                </div>
+                <button
+                  onClick={downloadJsonTemplate}
+                  className="px-4 py-2 rounded-xl bg-surface border border-border hover:border-primary/40 text-xs font-semibold flex items-center gap-1.5 text-text hover:text-primary transition-all shrink-0"
+                >
+                  <FiDownload size={14} /> Download JSON
+                </button>
+              </div>
+            </div>
+          )}
 
           {/* TAB CONTENT: PROJECTS */}
           {activeTab === 'projects' && (

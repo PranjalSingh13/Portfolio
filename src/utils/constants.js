@@ -9,12 +9,12 @@ export const SITE = {
   degree: 'BCA — AI & Data Science',
   cgpa: '7.82 / 10.0',
   graduationYear: 2027,
-  availability: 'Open to SDE Intern & Full Stack roles',
+  availability: 'Open to Software Engineer & Full Stack roles',
 }
 
 export const LINKS = {
-  github: 'https://github.com/PranjalSingh-dev',
-  linkedin: 'https://linkedin.com/in/pranjal-singh-dev',
+  github: 'https://github.com/PranjalSingh13',
+  linkedin: 'https://linkedin.com/in/pranjal-singh13',
   leetcode: 'https://leetcode.com/u/Pranjasinghl13',
   resume: '/docs/PranjalSingh_Resume.pdf',
 }
@@ -30,4 +30,4 @@ export const NAV_LINKS = [
   { label: 'Contact',      href: '#contact' },
 ]
 
-export const GITHUB_USERNAME = 'PranjalSingh-dev'
+export const GITHUB_USERNAME = 'PranjalSingh13'

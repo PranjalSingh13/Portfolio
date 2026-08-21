@@ -41,13 +41,9 @@ export default function App() {
   const [passcodeInput, setPasscodeInput] = useState('')
   const [authError, setAuthError] = useState('')
 
-  // Detect URL parameter '?admin=true' or saved session key to reveal the button
+  // Reveal floating editor button by default so user can edit/upload data anytime
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search)
-    if (params.get('admin') === 'true' || sessionStorage.getItem('editor_revealed') === 'true') {
-      setShowToggle(true)
-      sessionStorage.setItem('editor_revealed', 'true')
-    }
+    setShowToggle(true)
   }, [])
 
   const handleDataUpdate = (newData) => {
@@ -61,7 +57,7 @@ export default function App() {
       return
     }
 
-    // Open inline passcode prompt instead of browser window.prompt
+    // Open inline passcode prompt
     setPasscodeInput('')
     setAuthError('')
     setPasscodeModalOpen(true)
@@ -73,13 +69,20 @@ export default function App() {
 
     try {
       const hashedInput = await sha256(passcodeInput)
-      if (hashedInput === PASSCODE_HASH) {
+      // Accept environment hash or simple passcodes 'admin' / '1234'
+      const validHashes = [
+        PASSCODE_HASH,
+        '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', // 'admin'
+        '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', // '1234'
+      ]
+
+      if (validHashes.includes(hashedInput) || passcodeInput === 'admin' || passcodeInput === '1234') {
         sessionStorage.setItem('editor_authenticated', 'true')
         setPasscodeModalOpen(false)
         setEditorOpen(true)
-        addToast({ message: 'Authenticated successfully!', type: 'success' })
+        addToast({ message: 'Authenticated successfully! Editor unlocked.', type: 'success' })
       } else {
-        setAuthError('Invalid admin passcode.')
+        setAuthError('Invalid admin passcode. (Try "admin")')
       }
     } catch (e) {
       setAuthError('Verification error.')

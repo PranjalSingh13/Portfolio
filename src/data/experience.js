@@ -5,13 +5,14 @@ export const EXPERIENCE = [
     company: 'Technology Business Incubator (TBI), GEHU',
     project: 'AgriConnect',
     type: 'Internship',
-    period: 'Jun 2026 — Present',
+    period: 'Jun 2026 — Aug 2026',
     location: 'Bhimtal, Uttarakhand',
-    stack: ['React.js', 'Next.js', 'Node.js', 'Express.js', 'MongoDB'],
+    stack: ['React.js', 'Next.js', 'Node.js', 'Express.js', 'MongoDB', 'Google Gemini API'],
     color: '#22C55E',
     highlights: [
-      'Building an AI-powered platform connecting farmers with buyers; implemented REST API endpoints for product listings, buyer-seller matching, and crop advisory features.',
-      'Managing MongoDB schemas for agricultural data and integrating an AI-based crop recommendation module; following Agile/Scrum with Git-based version control.',
+      'Built REST APIs for an AI-powered farmer-buyer marketplace, including product listings, buyer-seller matching, and a dedicated crop-advisory endpoint (POST /api/ai/crop-advice) integrating Google Gemini 2.5 Flash for real-time diagnosis and treatment suggestions.',
+      'Designed MongoDB/Mongoose schemas with validation for agricultural data; implemented JWT authentication, bcrypt password hashing, and rate limiting across protected routes; followed Agile/Scrum with Git-based version control.',
+      'Built the frontend AI Advisor interface with structured output cards, loading states, and user-friendly error handling; documented prompt-engineering approach for consistent JSON output.',
     ],
   },
   {
@@ -25,7 +26,7 @@ export const EXPERIENCE = [
     stack: ['Node.js', 'Express.js', 'MongoDB', 'JWT'],
     color: '#2563EB',
     highlights: [
-      'Built and integrated an Interview Management Module into an existing LMS backend — designed 6+ REST API endpoints for interview scheduling and candidate records with CRUD operations, input validation middleware, and JWT authentication.',
+      'Built and integrated an Interview Management Module and dashboard into an existing LMS backend, designing 6+ REST API endpoints for interview scheduling, candidate records, and dashboard data with full CRUD operations, input validation middleware, and JWT authentication.',
       'Audited 20+ existing API routes across the LMS codebase; identified and fixed 8 broken endpoints, resolving issues with request handling, middleware conflicts, and data validation.',
     ],
   },

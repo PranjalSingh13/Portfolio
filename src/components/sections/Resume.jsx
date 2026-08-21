@@ -79,38 +79,53 @@ export default function Resume({ site }) {
               </h4>
               <div className="border-l border-border/60 pl-3.5 space-y-1">
                 <div className="flex justify-between text-xs font-semibold text-text">
-                  <span>{activeSite.university}</span>
-                  <span>2024 — 2027</span>
+                  <span>{activeSite.university} — BCA (AI & Data Science)</span>
+                  <span>Jun 2024 — Jun 2027</span>
                 </div>
                 <div className="text-[11px] text-muted">
-                  {activeSite.degree} | CGPA: {activeSite.cgpa}
+                  Bhimtal, Uttarakhand | CGPA: {activeSite.cgpa}
                 </div>
               </div>
             </div>
 
-            {/* Experience Block */}
+            {/* Work Experience Block */}
             <div>
               <h4 className="text-xs font-mono font-semibold uppercase tracking-wider text-muted mb-2.5">
-                Work Experience
+                Internship Experience
               </h4>
               <div className="space-y-4 border-l border-border/60 pl-3.5">
                 <div>
                   <div className="flex justify-between text-xs font-semibold text-text">
                     <span>Full Stack Developer Intern — TBI, GEHU</span>
-                    <span>2026 — Present</span>
+                    <span>Jun 2026 — Aug 2026</span>
                   </div>
-                  <p className="text-[10px] text-muted mt-0.5">
-                    Building AgriConnect full stack platform using React, Node, Express, MongoDB.
+                  <p className="text-[10px] text-muted mt-0.5 leading-relaxed">
+                    Built AgriConnect REST APIs & Google Gemini 2.5 Flash crop-advisory endpoint (<code className="text-primary font-mono">POST /api/ai/crop-advice</code>), JWT auth, and frontend AI Advisor interface.
                   </p>
                 </div>
                 <div>
                   <div className="flex justify-between text-xs font-semibold text-text">
-                    <span>Backend Developer Intern — Uptoskills</span>
-                    <span>2026</span>
+                    <span>Backend Developer Intern — Uptoskills (Remote)</span>
+                    <span>May 2026 — Aug 2026</span>
                   </div>
-                  <p className="text-[10px] text-muted mt-0.5">
-                    Integrated Interview Management module; audited and secured 20+ API routes.
+                  <p className="text-[10px] text-muted mt-0.5 leading-relaxed">
+                    Built Interview Management Module & dashboard (6+ REST API endpoints); audited 20+ routes and fixed 8 broken endpoints.
                   </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Featured Projects Block */}
+            <div>
+              <h4 className="text-xs font-mono font-semibold uppercase tracking-wider text-muted mb-2.5">
+                Featured Projects
+              </h4>
+              <div className="grid grid-cols-1 gap-2 text-xs text-muted">
+                <div className="border-l border-border/60 pl-3.5">
+                  <span className="font-semibold text-text">MyRideShare:</span> User & Captain portals, Socket.io real-time tracking, OpenRouteService API fare estimation, Gemini AI.
+                </div>
+                <div className="border-l border-border/60 pl-3.5">
+                  <span className="font-semibold text-text">StructDB:</span> Custom relational DBMS from scratch in Python with custom SQL parser, B-Tree O(log n) range queries, Hash Table O(1), and ACID transactions.
                 </div>
               </div>
             </div>
@@ -122,16 +137,16 @@ export default function Resume({ site }) {
               </h4>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1.5 text-xs text-muted">
                 <div>
-                  <span className="font-semibold text-text/80">Languages:</span> Python, JavaScript, C++, C, SQL
+                  <span className="font-semibold text-text/80">Languages:</span> Python, JavaScript (ES6+), C++, C, SQL
                 </div>
                 <div>
-                  <span className="font-semibold text-text/80">Backend:</span> Node.js, Express, Flask, REST APIs, JWT
+                  <span className="font-semibold text-text/80">Frontend:</span> React.js, Next.js, Vite, HTML5, CSS3
                 </div>
                 <div>
-                  <span className="font-semibold text-text/80">Databases:</span> MongoDB, MySQL, SQLite, PostgreSQL
+                  <span className="font-semibold text-text/80">Backend:</span> Node.js, Express, Flask, REST APIs, JWT, Socket.io
                 </div>
                 <div>
-                  <span className="font-semibold text-text/80">DevOps:</span> Git, GitHub, Postman, Vercel, Render
+                  <span className="font-semibold text-text/80">Databases:</span> MongoDB (Mongoose), MySQL, SQLite, PostgreSQL
                 </div>
               </div>
             </div>
