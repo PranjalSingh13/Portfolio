@@ -1,17 +1,17 @@
 import { motion } from 'framer-motion'
 import AnimatedSection from '../ui/AnimatedSection'
-import { SITE } from '../../utils/constants'
+import { FiShield, FiTrendingUp, FiUsers } from 'react-icons/fi'
 
 const SECTION_LABEL_STYLE = { color: '#00b4ff', fontFamily: 'JetBrains Mono, monospace', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase' }
 
 /**
- * About Section â€” dark navy glassmorphism dashboard style.
+ * About Section - dark navy glassmorphism dashboard style.
  */
 export default function About() {
   const milestones = [
     {
-      year: '2024 â€” 2027',
-      title: 'BCA â€” AI & Data Science',
+      year: '2024 - 2027',
+      title: 'BCA - AI & Data Science',
       institution: 'Graphic Era Hill University, Bhimtal',
       description: 'CGPA: 7.82 / 10.0',
       color: '#00b4ff',
@@ -33,19 +33,19 @@ export default function About() {
   const pillars = [
     {
       title: 'Reliable Systems',
-      icon: 'ðŸ›¡ï¸',
+      Icon: FiShield,
       description: 'Committed to writing secure, validated, and optimized code that adheres to standard software engineering best practices.',
       color: '#00b4ff',
     },
     {
       title: 'Continuous Growth',
-      icon: 'ðŸš€',
+      Icon: FiTrendingUp,
       description: 'Eagerly learning advanced DSA, computer network design, and AI integrations to expand full stack competencies.',
       color: '#34d399',
     },
     {
       title: 'Agile & Collaborative',
-      icon: 'ðŸ¤',
+      Icon: FiUsers,
       description: 'Value Git teamwork, transparent communication, and structured sprint execution derived from internship experiences.',
       color: '#a78bfa',
     },
@@ -103,7 +103,7 @@ export default function About() {
                     border: `1px solid rgba(0, 180, 255, 0.1)`,
                   }}
                 >
-                  <span className="text-2xl mb-3 block">{pillar.icon}</span>
+                  <pillar.Icon size={24} style={{ color: pillar.color, marginBottom: 12 }} />
                   <h4 className="font-bold text-sm mb-2" style={{ color: pillar.color }}>{pillar.title}</h4>
                   <p className="text-xs leading-relaxed" style={{ color: '#6b9acf' }}>{pillar.description}</p>
                 </AnimatedSection>

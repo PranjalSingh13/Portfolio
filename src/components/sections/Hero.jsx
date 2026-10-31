@@ -3,7 +3,7 @@ import { FiDownload, FiArrowRight, FiGithub, FiLinkedin, FiCode, FiCpu, FiZap } 
 import { SITE, LINKS } from '../../utils/constants'
 
 /**
- * Dark navy glassmorphism Hero â€” Vision UI Pro style dashboard aesthetic.
+ * Dark navy glassmorphism Hero " Vision UI Pro style dashboard aesthetic.
  */
 export default function Hero({ site }) {
   const activeSite = site || SITE
@@ -75,7 +75,7 @@ export default function Hero({ site }) {
               animation: 'pulse 2s ease-in-out infinite',
             }} />
             <span className="text-xs font-mono font-semibold" style={{ color: '#7ecfff' }}>
-              [ pranjal_singh_init ] â€” Open to SDE & Full Stack roles
+              [ pranjal_singh_init ] " Open to SDE & Full Stack roles
             </span>
           </motion.div>
 
@@ -222,7 +222,7 @@ export default function Hero({ site }) {
                 <span className="w-3 h-3 rounded-full" style={{ background: '#febc2e', boxShadow: '0 0 5px rgba(254,188,46,0.5)' }} />
                 <span className="w-3 h-3 rounded-full" style={{ background: '#28c840', boxShadow: '0 0 5px rgba(40,200,64,0.5)' }} />
               </div>
-              <span className="text-xs font-mono" style={{ color: '#4a7aaa' }}>bash â€” pranjal@gehu</span>
+              <span className="text-xs font-mono" style={{ color: '#4a7aaa' }}>bash " pranjal@gehu</span>
               <div className="w-16" />
             </div>
 
@@ -237,7 +237,7 @@ export default function Hero({ site }) {
                 }}>{`{
   "name": "${activeSite.name}",
   "location": "${activeSite.location}",
-  "education": "BCA â€” AI & Data Science",
+  "education": "BCA " AI & Data Science",
   "focus": ["Backend", "Systems", "Full Stack"]
 }`}</pre>
               </div>
