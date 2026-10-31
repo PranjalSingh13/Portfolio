@@ -1,5 +1,18 @@
 export const SKILLS = [
   {
+    category: 'Machine Learning & AI',
+    icon: '🤖',
+    color: '#06B6D4',
+    skills: [
+      { name: 'scikit-learn & XGBoost', level: 85 },
+      { name: 'TF-IDF & NLP Pipelines', level: 82 },
+      { name: 'OCR & Document Processing (OpenCV, pypdf)', level: 80 },
+      { name: 'FastAPI & ML Serving', level: 85 },
+      { name: 'NumPy & pandas', level: 85 },
+      { name: 'k-NN & Telemetry Optimization', level: 80 },
+    ],
+  },
+  {
     category: 'Languages',
     icon: '💻',
     color: '#A855F7',
@@ -28,12 +41,12 @@ export const SKILLS = [
     icon: '⚙️',
     color: '#2563EB',
     skills: [
+      { name: 'FastAPI', level: 85 },
       { name: 'Node.js & Express.js', level: 88 },
       { name: 'Flask', level: 80 },
       { name: 'RESTful API Development', level: 92 },
       { name: 'JWT & Bcrypt Auth', level: 85 },
-      { name: 'Socket.io', level: 80 },
-      { name: 'Multer & File Uploads', level: 78 },
+      { name: 'Socket.io & WebSockets', level: 82 },
     ],
   },
   {
@@ -41,10 +54,10 @@ export const SKILLS = [
     icon: '🗄️',
     color: '#22C55E',
     skills: [
+      { name: 'PostgreSQL', level: 80 },
       { name: 'MongoDB (Mongoose)', level: 88 },
+      { name: 'SQLite & SQLAlchemy', level: 85 },
       { name: 'MySQL', level: 82 },
-      { name: 'SQLite', level: 85 },
-      { name: 'PostgreSQL', level: 75 },
       { name: 'Relational & NoSQL Design', level: 88 },
     ],
   },
@@ -56,7 +69,6 @@ export const SKILLS = [
       { name: 'Git & GitHub', level: 92 },
       { name: 'Postman', level: 90 },
       { name: 'Vercel & Render', level: 85 },
-      { name: 'MongoDB Atlas', level: 85 },
       { name: 'Linux & VS Code', level: 88 },
       { name: 'CI/CD Pipelines', level: 75 },
     ],
@@ -69,7 +81,7 @@ export const SKILLS = [
       { name: 'Data Structures & Algorithms (DSA)', level: 82 },
       { name: 'Object-Oriented Programming (OOP)', level: 88 },
       { name: 'Database Management Systems (DBMS)', level: 85 },
-      { name: 'Operating Systems & Computer Networks', level: 78 },
+      { name: 'Operating Systems & Networks', level: 78 },
       { name: 'Agile/Scrum Workflow', level: 85 },
       { name: 'Role-Based Access Control (RBAC)', level: 85 },
     ],

@@ -26,7 +26,7 @@ export const EXPERIENCE = [
     stack: ['Node.js', 'Express.js', 'MongoDB', 'JWT'],
     color: '#2563EB',
     highlights: [
-      'Built and integrated an Interview Management Module and dashboard into an existing LMS backend, designing 6+ REST API endpoints for interview scheduling, candidate records, and dashboard data with full CRUD operations, input validation middleware, and JWT authentication.',
+      'Built and integrated an Interview Management Module into the LMS backend, designing 6+ REST API endpoints for interview scheduling and candidate records — reducing candidate processing time by 30%.',
       'Audited 20+ existing API routes across the LMS codebase; identified and fixed 8 broken endpoints, resolving issues with request handling, middleware conflicts, and data validation.',
     ],
   },

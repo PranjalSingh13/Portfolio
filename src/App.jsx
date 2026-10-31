@@ -90,7 +90,7 @@ export default function App() {
   }
 
   return (
-    <div className="relative min-h-screen bg-background text-text flex flex-col justify-between">
+    <div className="relative min-h-screen flex flex-col justify-between" style={{ background: "#060d1f", color: "#d6e8ff" }}>
       <Navbar />
 
       <main className="flex-1">
@@ -189,3 +189,4 @@ export default function App() {
     </div>
   )
 }
+

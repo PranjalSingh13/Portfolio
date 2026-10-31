@@ -7,26 +7,36 @@ import { SITE } from '../utils/constants'
 const STORAGE_KEY = 'pranjal_portfolio_dynamic_data'
 
 /**
- * Loads portfolio state, prioritizing local storage edits.
+ * Loads portfolio state, prioritizing local storage edits with robust fallback safeguards.
  */
 export function loadPortfolioData() {
-  try {
-    const data = localStorage.getItem(STORAGE_KEY)
-    if (data) {
-      return JSON.parse(data)
-    }
-  } catch (e) {
-    console.error('Failed to load local storage content:', e)
-  }
-
-  // Fallback defaults
-  return {
+  const defaults = {
     site: SITE,
     projects: PROJECTS,
     experience: EXPERIENCE,
     skills: SKILLS,
     achievements: ACHIEVEMENTS,
   }
+
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY)
+    if (raw) {
+      const parsed = JSON.parse(raw)
+      if (parsed && typeof parsed === 'object') {
+        return {
+          site: parsed.site && typeof parsed.site === 'object' ? { ...SITE, ...parsed.site } : SITE,
+          projects: Array.isArray(parsed.projects) && parsed.projects.length > 0 ? parsed.projects : PROJECTS,
+          experience: Array.isArray(parsed.experience) && parsed.experience.length > 0 ? parsed.experience : EXPERIENCE,
+          skills: Array.isArray(parsed.skills) && parsed.skills.length > 0 ? parsed.skills : SKILLS,
+          achievements: Array.isArray(parsed.achievements) && parsed.achievements.length > 0 ? parsed.achievements : ACHIEVEMENTS,
+        }
+      }
+    }
+  } catch (e) {
+    console.error('Failed to load local storage content:', e)
+  }
+
+  return defaults
 }
 
 /**

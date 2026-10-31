@@ -1,0 +1,218 @@
+{
+  "$schema": "https://raw.githubusercontent.com/jsonresume/resume-schema/v1.0.0/schema.json",
+  "basics": {
+    "name": "Pranjal Singh",
+    "label": "Machine Learning & Backend Engineer Intern",
+    "email": "ppranjalsingh13@gmail.com",
+    "phone": "+91 8448972708",
+    "url": "https://portfolio-alpha-ecru-91.vercel.app",
+    "summary": "Final-year BCA (AI & Data Science) student with hands-on experience in machine learning pipelines, document classification systems, and backend REST APIs. Built TradeGuard (document intelligence & risk-scoring engine), completed two software engineering internships, and contributed 5 merged PRs to open-source project Kestra. Seeking a Machine Learning Intern role to apply practical skills in OCR, NLP, and production AI systems.",
+    "location": {
+      "city": "Dehradun",
+      "region": "Uttarakhand",
+      "countryCode": "IN"
+    },
+    "profiles": [
+      {
+        "network": "Portfolio",
+        "username": "Pranjal Singh",
+        "url": "https://portfolio-alpha-ecru-91.vercel.app"
+      },
+      {
+        "network": "GitHub",
+        "username": "PranjalSingh13",
+        "url": "https://github.com/PranjalSingh13"
+      },
+      {
+        "network": "LinkedIn",
+        "username": "pranjal-singh-dev",
+        "url": "https://linkedin.com/in/pranjal-singh-dev"
+      },
+      {
+        "network": "LeetCode",
+        "username": "Pranjasinghl13",
+        "url": "https://leetcode.com/u/Pranjasinghl13/"
+      }
+    ]
+  },
+  "education": [
+    {
+      "institution": "Graphic Era Hill University",
+      "area": "Artificial Intelligence & Data Science",
+      "studyType": "Bachelor of Computer Applications (B.C.A.)",
+      "startDate": "2024-06-01",
+      "endDate": "2027-06-30",
+      "score": "7.82 CGPA",
+      "courses": [
+        "Data Structures & Algorithms",
+        "Machine Learning & AI",
+        "Database Management Systems",
+        "Operating Systems",
+        "Computer Networks"
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "name": "Programming Languages",
+      "keywords": ["Python", "JavaScript (ES6+)", "C", "C++", "SQL"]
+    },
+    {
+      "name": "Machine Learning & Data",
+      "keywords": [
+        "scikit-learn",
+        "XGBoost",
+        "k-NN",
+        "TF-IDF",
+        "NLP (basics)",
+        "OCR (OpenCV, pypdf)",
+        "NumPy",
+        "pandas"
+      ]
+    },
+    {
+      "name": "Web & APIs",
+      "keywords": [
+        "FastAPI",
+        "Flask",
+        "Node.js",
+        "Express.js",
+        "React.js",
+        "WebSockets",
+        "REST APIs",
+        "JWT Authentication"
+      ]
+    },
+    {
+      "name": "Databases & Tools",
+      "keywords": [
+        "PostgreSQL",
+        "MongoDB",
+        "SQLite",
+        "SQLAlchemy",
+        "Git",
+        "GitHub",
+        "Postman",
+        "Linux",
+        "VS Code"
+      ]
+    }
+  ],
+  "work": [
+    {
+      "name": "Technology Business Incubator (TBI), GEHU",
+      "position": "Full Stack Developer Intern",
+      "url": "https://github.com/PranjalSingh13/AgriConnect",
+      "startDate": "2026-06-01",
+      "endDate": "2026-08-31",
+      "summary": "Project: AgriConnect — AI-powered farmer-buyer agricultural marketplace (React.js, Next.js, Node.js, Express.js, MongoDB, Google Gemini API).",
+      "highlights": [
+        "Built REST APIs for farmer-buyer agricultural marketplace with JWT authentication, bcrypt password hashing, and rate limiting.",
+        "Integrated Google Gemini API using prompt engineering to enforce structured JSON responses for automated farm advisory.",
+        "Deployed frontend application to Vercel and backend to production hosting."
+      ]
+    },
+    {
+      "name": "Uptoskills",
+      "position": "Backend Developer Intern (Remote)",
+      "startDate": "2026-05-01",
+      "endDate": "2026-08-31",
+      "summary": "Project: LMS Platform (Node.js, Express.js, MongoDB, JWT).",
+      "highlights": [
+        "Developed Interview Management Module with 6 REST APIs for scheduling and records, reducing candidate processing time by 30%.",
+        "Audited 20+ backend routes, resolving 8 broken endpoints to improve platform reliability and error-handling."
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "name": "TradeGuard",
+      "description": "Document Verification & Risk-Scoring Engine for Maritime Trade",
+      "url": "https://github.com/PranjalSingh13/TradeGuard",
+      "startDate": "2026-09-01",
+      "endDate": "2026-10-31",
+      "entity": "Independent Project",
+      "roles": ["Creator", "ML & Backend Engineer"],
+      "keywords": [
+        "Python",
+        "FastAPI",
+        "XGBoost",
+        "scikit-learn",
+        "OpenCV",
+        "SQLAlchemy",
+        "SQLite"
+      ],
+      "highlights": [
+        "Built TF-IDF classifier to categorize cargo documents (Bill of Lading, Invoice, Packing List) with regex extraction, ISO 6346 container check, and cross-document reconciliation for cargo weight and package validation.",
+        "Trained XGBoost risk model on 500 synthetic shipments achieving ROC-AUC 0.86 and 100% precision on auto-release.",
+        "Exposed via FastAPI with JWT auth, interactive HTML dashboard, and 23 automated tests."
+      ]
+    },
+    {
+      "name": "NearShare",
+      "description": "Ultra-Fast, Secure Local & Remote P2P File Sharing with E2E Encryption and ML-Driven Transfer Optimization",
+      "url": "https://github.com/PranjalSingh13/nearshare",
+      "startDate": "2025-07-01",
+      "endDate": "2025-09-30",
+      "entity": "Independent Project",
+      "roles": ["Creator", "Full Stack & ML Engineer"],
+      "keywords": [
+        "React 19",
+        "Node.js",
+        "WebSockets",
+        "SQLite",
+        "AES-256-GCM",
+        "ECDH",
+        "k-NN ML Model"
+      ],
+      "highlights": [
+        "Engineered local & remote P2P file sharing with zero-cloud storage, securing chunk streams via ECDH (prime256v1) ephemeral key negotiation, AES-256-GCM authenticated encryption, and SHA-256 integrity digests.",
+        "Implemented an embedded k-NN telemetry model learning from session metrics (payload size, peer count) to dynamically optimize chunk sizing (256KB–2MB) and bypass redundant compression on media formats."
+      ]
+    },
+    {
+      "name": "StructDB",
+      "description": "Custom Relational Database Engine Built from Scratch",
+      "url": "https://github.com/PranjalSingh13/StructDB",
+      "startDate": "2025-01-01",
+      "endDate": "2025-04-30",
+      "entity": "Independent Project",
+      "roles": ["Creator", "Systems Engineer"],
+      "keywords": [
+        "Python",
+        "Custom SQL Parser",
+        "B-Tree",
+        "SHA-256",
+        "Tkinter"
+      ],
+      "highlights": [
+        "Implemented custom DBMS from scratch featuring SQL parser, B-Tree indexing for O(log n) lookups, ACID transactions with rollback, SHA-256 hashed storage, and a Tkinter GUI for visual query execution."
+      ]
+    }
+  ],
+  "openSource": [
+    {
+      "organization": "Kestra",
+      "repository": "kestra-io/kestra",
+      "url": "https://github.com/kestra-io/kestra",
+      "queryUrl": "https://github.com/search?q=org%3Akestra-io+author%3APranjalSingh13+is%3Apr+is%3Amerged&type=pullrequests",
+      "stars": "15k+ GitHub Stars",
+      "summary": "Merged 5 pull requests: refactored frontend UI components, wrote automated unit tests, and resolved issue-tracked bugs."
+    }
+  ],
+  "awards": [
+    {
+      "title": "Top 10 Finalist",
+      "date": "2025",
+      "awarder": "College Internal Hackathon",
+      "summary": "Placed in Top 10 for rapid prototyping and technical execution in collegiate competitive hackathon."
+    },
+    {
+      "title": "200+ LeetCode Problems Solved",
+      "date": "2026",
+      "awarder": "LeetCode",
+      "summary": "Solved 200+ problems covering Data Structures & Algorithms, Dynamic Programming, and Graphs (leetcode.com/u/Pranjasinghl13)."
+    }
+  ]
+}
+
