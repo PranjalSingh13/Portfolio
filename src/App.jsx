@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import ErrorBoundary from './components/ErrorBoundary'
 import Navbar from './components/layout/Navbar'
 import Footer from './components/layout/Footer'
 import Hero from './components/sections/Hero'
@@ -90,6 +91,7 @@ export default function App() {
   }
 
   return (
+    <ErrorBoundary>
     <div className="relative min-h-screen flex flex-col justify-between" style={{ background: "#060d1f", color: "#d6e8ff" }}>
       <Navbar />
 
@@ -187,6 +189,7 @@ export default function App() {
         />
       )}
     </div>
+    </ErrorBoundary>
   )
 }
 
